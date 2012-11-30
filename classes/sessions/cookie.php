@@ -1,12 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Cookie-based session class.
+ * Cookie-based sessions class.
  *
- * @package    Kohana
- * @category   Session
- * @author     Kohana Team
- * @copyright  (c) 2008-2011 Kohana Team
+ * @package    Sessions
+ * @category   Drivers
+ * @author     Kohana Team, Michał Musiał
+ * @copyright  Original code (c) 2008-2011 Kohana Team, modifications (c) 2012 Michał Musiał
  * @license    http://kohanaframework.org/license
  */
 class Sessions_Cookie extends Sessions
@@ -52,5 +52,4 @@ class Sessions_Cookie extends Sessions
 	{
 		return Cookie::delete($this->_name);
 	}
-
 }

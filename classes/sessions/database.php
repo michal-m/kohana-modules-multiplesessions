@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Database-based session class.
+ * Database-based sessions class.
  *
  * Sample schema:
  *
@@ -13,10 +13,10 @@
  *         INDEX ( `last_active` )
  *     ) ENGINE = MYISAM ;
  *
- * @package    Kohana/Database
- * @category   Session
- * @author     Kohana Team
- * @copyright  (c) 2008-2009 Kohana Team
+ * @package    Sessions
+ * @category   Drivers
+ * @author     Kohana Team, Michał Musiał
+ * @copyright  Original code (c) 2008-2011 Kohana Team, modifications (c) 2012 Michał Musiał
  * @license    http://kohanaphp.com/license
  */
 class Sessions_Database extends Sessions

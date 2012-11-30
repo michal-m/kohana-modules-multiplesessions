@@ -1,12 +1,11 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * Base session class.
+ * Base sessions class.
  *
- * @package    Kohana
- * @category   Session
- * @author     Kohana Team
- * @copyright  (c) 2008-2011 Kohana Team
+ * @package    Sessions
+ * @author     Kohana Team, Michał Musiał
+ * @copyright  Original code (c) 2008-2011 Kohana Team, modifications (c) 2012 Michał Musiał
  * @license    http://kohanaframework.org/license
  */
 abstract class Sessions {
