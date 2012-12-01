@@ -11,10 +11,11 @@ return array(
         'type'      => 'database',
         'encrypted' => TRUE,
         'lifetime'  => 43200,
+        'path'      => '',
         'group'     => 'default',
-        'table'     => 'table_name',
+        'table'     => 'sessions',
         'columns'   => array(
-            'session_id'  => 'session_id',
+            'session_id'  => 'id',
             'last_active' => 'last_active',
             'contents'    => 'contents'
         ),

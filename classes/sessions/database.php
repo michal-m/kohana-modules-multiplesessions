@@ -6,10 +6,10 @@
  * Sample schema:
  *
  *     CREATE TABLE  `sessions` (
- *         `session_id` VARCHAR( 24 ) NOT NULL,
+ *         `id` VARCHAR( 24 ) NOT NULL,
  *         `last_active` INT UNSIGNED NOT NULL,
  *         `contents` TEXT NOT NULL,
- *         PRIMARY KEY ( `session_id` ),
+ *         PRIMARY KEY ( `id` ),
  *         INDEX ( `last_active` )
  *     ) ENGINE = MYISAM ;
  *
