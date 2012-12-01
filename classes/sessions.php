@@ -8,8 +8,8 @@
  * @copyright  Original code (c) 2008-2011 Kohana Team, modifications (c) 2012 Michał Musiał
  * @license    http://kohanaframework.org/license
  */
-abstract class Sessions {
-
+abstract class Sessions
+{
 	/**
 	 * @var  string  default session adapter
 	 */
