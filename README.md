@@ -14,9 +14,62 @@ Multiple Sessions module for Kohana PHP Framework
 1. Copy and paste files and folders to `MODPATH/multiple-sessions`.
 2. Copy `MODPATH/multiple-sessions/config/sessions.php` to your `APPPATH/config` folder.
 3. Add this entry under `Kohana::modules` array in `APPPATH/bootstrap.php`:
-3.
+
 ```php
 'multiple-sessions' => MODPATH.'multiple-sessions', // Multiple Sessions Support
+```
+
+## Configuration
+
+You can configure your cookies in `MODPATH/multiple-sessions/config/sessions.php`
+file. This module provides support for 2 types of session drivers - cookie and
+database. Both has some basic configuration:
+
+```php
+return array(
+    /**
+     * The following options must be set:
+     *
+     * string   type        session driver type (cookie|database)
+     * boolean  encrypted   whether to encrypt session data
+     * integer  lifetime    session lifetime in seconds
+     * path     path        cookie path
+     */
+    'session_cookie_name' => array(
+        'type'      => 'cookie',
+        'encrypted' => FALSE,
+        'lifetime'  => 43200,
+        'path'      => '',
+    ),
+);
+```
+
+Additionally, database type, has DB specific configuration, based on Kohana's
+own:
+
+```php
+return array(
+    'db_session_cookie_name' => array(
+        /**
+         * Basic config
+         */
+        'type'      => 'database',
+        'encrypted' => TRUE,
+        'lifetime'  => 43200,
+        'path'      => '',
+        /**
+         * DB Specific configuration.
+         */
+        'group'     => 'default',
+        'table'     => 'sessions',
+        'columns'   => array(
+            'session_id'  => 'id',
+            'last_active' => 'last_active',
+            'contents'    => 'contents'
+        ),
+        'gc'        => 500,
+    ),
+);
 ```
 
 ## Usage
