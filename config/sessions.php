@@ -1,12 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 return array(
-	'session' => array(
+    'session' => array(
         'type'      => 'cookie',
-		'encrypted' => FALSE,
+        'encrypted' => FALSE,
         'lifetime'  => 43200,
         'path'      => '',
-	),
+    ),
     'session_2' => array(
         'type'      => 'database',
         'encrypted' => TRUE,
