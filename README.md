@@ -33,7 +33,7 @@ return array(
      * string   type        session driver type (cookie|database)
      * boolean  encrypted   whether to encrypt session data
      * integer  lifetime    session lifetime in seconds
-     * path     path        cookie path
+     * string   path        cookie path
      */
     'session_cookie_name' => array(
         'type'      => 'cookie',
