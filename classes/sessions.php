@@ -11,9 +11,9 @@
 abstract class Sessions
 {
 	/**
-	 * @var  string  default session adapter
+	 * @var  string  default session name
 	 */
-	public static $default = 'native';
+	public static $default = 'session';
 
 	/**
 	 * @var  array  session instances
@@ -21,46 +21,46 @@ abstract class Sessions
 	public static $instances = array();
 
 	/**
-	 * Creates a singleton session of the given type. Some session types
-	 * (native, database) also support restarting a session by passing a
-	 * session id as the second parameter.
+	 * Creates a singleton session of a given name. Database session type
+	 * also supports restarting a session by passing a session id as the second
+     * parameter.
 	 *
-	 *     $session = Session::instance();
+	 *     $session = Sessions::instance();
 	 *
-	 * [!!] [Session::write] will automatically be called when the request ends.
+	 * [!!] [Sessions::write] will automatically be called when the request ends.
 	 *
-	 * @param   string   type of session (native, cookie, etc)
+	 * @param   string   name/id of session (cookie|database)
 	 * @param   string   session identifier
-	 * @return  Session
+	 * @return  Sessions
 	 * @uses    Kohana::$config
 	 */
-	public static function instance($type = NULL, $id = NULL)
+	public static function instance($name = NULL, $id = NULL)
 	{
-		if ($type === NULL)
+		if ($name === NULL)
 		{
-			// Use the default type
-			$type = Session::$default;
+			// Use the default name
+			$name = Sessions::$default;
 		}
 
-		if ( ! isset(Session::$instances[$type]))
+		if ( ! isset(Sessions::$instances[$name]))
 		{
 			// Load the configuration for this type
-			$config = Kohana::$config->load('session')->get($type);
+			$config = Kohana::$config->load('sessions')->get($name);
 
 			// Set the session class name
-			$class = 'Session_'.ucfirst($type);
+			$class = 'Sessions_'.ucfirst($config['type']);
 
 			// Create a new session instance
-			Session::$instances[$type] = $session = new $class($config, $id);
+			Sessions::$instances[$name] = $session = new $class($name, $config, $id);
 
 			// Write the session at shutdown
 			register_shutdown_function(array($session, 'write'));
 		}
 
-		return Session::$instances[$type];
+		return Sessions::$instances[$type];
 	}
 
-	/**
+    /**
 	 * @var  string  cookie name
 	 */
 	protected $_name = 'session';
@@ -88,20 +88,18 @@ abstract class Sessions
 	/**
 	 * Overloads the name, lifetime, and encrypted session settings.
 	 *
-	 * [!!] Sessions can only be created using the [Session::instance] method.
+	 * [!!] Sessions can only be created using the [Sessions::instance] method.
 	 *
+	 * @param   string  name
 	 * @param   array   configuration
 	 * @param   string  session id
 	 * @return  void
-	 * @uses    Session::read
+	 * @uses    Sessions::read
 	 */
-	public function __construct(array $config = NULL, $id = NULL)
+	protected function __construct($name, array $config = NULL, $id = NULL)
 	{
-		if (isset($config['name']))
-		{
-			// Cookie name to store the session id in
-			$this->_name = (string) $config['name'];
-		}
+        // Cookie name to store the session id in
+        $this->_name = (string) $name;
 
 		if (isset($config['lifetime']))
 		{
@@ -126,7 +124,7 @@ abstract class Sessions
 	}
 
 	/**
-	 * Session object is rendered to a serialized string. If encryption is
+	 * Sessions object is rendered to a serialized string. If encryption is
 	 * enabled, the session will be encrypted. If not, the output string will
 	 * be encoded using [base64_encode].
 	 *
@@ -179,7 +177,6 @@ abstract class Sessions
 	 * [!!] Not all session types have ids.
 	 *
 	 * @return  string
-	 * @since   3.0.8
 	 */
 	public function id()
 	{
@@ -192,7 +189,6 @@ abstract class Sessions
 	 *     $name = $session->name();
 	 *
 	 * @return  string
-	 * @since   3.0.8
 	 */
 	public function name()
 	{
@@ -323,7 +319,7 @@ abstract class Sessions
 		{
 			// Error reading the session, usually
 			// a corrupt session.
-			throw new Session_Exception('Error reading session data.', NULL, Session_Exception::SESSION_CORRUPT);
+			throw new Sessions_Exception('Error reading session data.', NULL, Sessions_Exception::SESSION_CORRUPT);
 		}
 
 		if (is_array($data))
