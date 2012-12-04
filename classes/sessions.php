@@ -57,7 +57,7 @@ abstract class Sessions
             register_shutdown_function(array($session, 'write'));
         }
 
-        return Sessions::$instances[$type];
+        return Sessions::$instances[$name];
     }
 
     /**
