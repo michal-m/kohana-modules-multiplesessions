@@ -61,6 +61,26 @@ abstract class Sessions
     }
 
     /**
+     * Gives a possibility to destroy the session cookie. This will prove useful
+     * when cookie data is malformed and throws an exception when reading.
+     *
+     *      Session::destroy_cookie('session');
+     *
+     * @param   string  name/id of the session
+     * @return  boolean
+     * @uses    Kohana::$config
+     */
+    public static function destroy_cookie($name)
+    {
+        $default_path = Cookie::$path;
+        Cookie::$path = Kohana::$config->load('sessions.' . $name . '.path');
+        $deleted = Cookie::delete($this->_name);
+        Cookie::$path = $default_path;
+
+        return $deleted;
+    }
+
+    /**
      * @var  string  cookie name
      */
     protected $_name = 'session';
