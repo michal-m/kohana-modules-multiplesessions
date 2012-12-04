@@ -29,7 +29,7 @@ class Sessions_Database extends Sessions
 
     // Database column names
     protected $_columns = array(
-        'session_id'  => 'session_id',
+        'session_id'  => 'id',
         'last_active' => 'last_active',
         'contents'    => 'contents'
     );
@@ -43,7 +43,7 @@ class Sessions_Database extends Sessions
     // The old session id
     protected $_update_id;
 
-    public function __construct(array $config = NULL, $id = NULL)
+    public function __construct($name, array $config = NULL, $id = NULL)
     {
         if ( ! isset($config['group']))
         {
@@ -89,6 +89,9 @@ class Sessions_Database extends Sessions
 
     protected function _read($id = NULL)
     {
+        $default_path = Cookie::$path;
+        Cookie::$path = $this->_path;
+
         if ($id OR $id = Cookie::get($this->_name))
         {
             $result = DB::select(array($this->_columns['contents'], 'contents'))
@@ -108,6 +111,8 @@ class Sessions_Database extends Sessions
             }
         }
 
+        Cookie::$path = $default_path;
+        
         // Create a new session id
         $this->_regenerate();
 
@@ -172,7 +177,10 @@ class Sessions_Database extends Sessions
         $this->_update_id = $this->_session_id;
 
         // Update the cookie with the new session id
+        $default_path = Cookie::$path;
+        Cookie::$path = $this->_path;
         Cookie::set($this->_name, $this->_session_id, $this->_lifetime);
+        Cookie::$path = $default_path;
 
         return TRUE;
     }
@@ -206,7 +214,10 @@ class Sessions_Database extends Sessions
             $query->execute($this->_db);
 
             // Delete the cookie
+            $default_path = Cookie::$path;
+            Cookie::$path = $this->_path;
             Cookie::delete($this->_name);
+            Cookie::$path = $default_path;
         }
         catch (Exception $e)
         {

@@ -17,7 +17,12 @@ class Sessions_Cookie extends Sessions
      */
     protected function _read($id = NULL)
     {
-        return Cookie::get($this->_name, NULL);
+        $default_path = Cookie::$path;
+        Cookie::$path = $this->_path;
+        $value = Cookie::get($this->_name, NULL);
+        Cookie::$path = $default_path;
+
+        return $value;
     }
 
     /**
@@ -34,7 +39,12 @@ class Sessions_Cookie extends Sessions
      */
     protected function _write()
     {
-        return Cookie::set($this->_name, $this->__toString(), $this->_lifetime);
+        $default_path = Cookie::$path;
+        Cookie::$path = $this->_path;
+        $set = Cookie::set($this->_name, $this->__toString(), $this->_lifetime);
+        Cookie::$path = $default_path;
+
+        return $set;
     }
 
     /**
@@ -50,6 +60,11 @@ class Sessions_Cookie extends Sessions
      */
     protected function _destroy()
     {
-        return Cookie::delete($this->_name);
+        $default_path = Cookie::$path;
+        Cookie::$path = $this->_path;
+        $deleted = Cookie::delete($this->_name);
+        Cookie::$path = $default_path;
+
+        return $deleted;
     }
 }

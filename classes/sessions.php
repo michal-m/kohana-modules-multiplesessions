@@ -71,6 +71,11 @@ abstract class Sessions
     protected $_lifetime = 0;
 
     /**
+     * @var  string  cookie path
+     */
+    protected $_path = '';
+
+    /**
      * @var  bool  encrypt session data?
      */
     protected $_encrypted = FALSE;
@@ -106,6 +111,9 @@ abstract class Sessions
             // Cookie lifetime
             $this->_lifetime = (int) $config['lifetime'];
         }
+
+        // Set the cookie path
+        $this->_path = $config['path'];
 
         if (isset($config['encrypted']))
         {
