@@ -21,7 +21,7 @@ Multiple Sessions module for Kohana PHP Framework
 
 ## Configuration
 
-You can configure your cookies in `MODPATH/multiple-sessions/config/sessions.php`
+You can configure your sessions and their cookies in your `APPPATH/config/sessions.php`
 file. This module provides support for 2 types of session drivers - cookie and
 database. Both has some basic configuration:
 
