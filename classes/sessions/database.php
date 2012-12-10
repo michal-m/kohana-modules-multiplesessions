@@ -72,7 +72,7 @@ class Sessions_Database extends Sessions
             $this->_columns = $config['columns'];
         }
 
-        parent::__construct($config, $id);
+        parent::__construct($name, $config, $id);
 
         if (mt_rand(0, $this->_gc) === $this->_gc)
         {
@@ -112,7 +112,7 @@ class Sessions_Database extends Sessions
         }
 
         Cookie::$path = $default_path;
-        
+
         // Create a new session id
         $this->_regenerate();
 
