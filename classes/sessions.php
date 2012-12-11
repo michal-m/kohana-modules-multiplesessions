@@ -59,7 +59,7 @@ abstract class Sessions
 
         return Sessions::$instances[$name];
     }
-    
+
     /**
      * Gives the possibility to destroy the session cookie. This will prove
      * useful when cookie data is malformed and throws an exception when
@@ -75,7 +75,7 @@ abstract class Sessions
     {
         $default_path = Cookie::$path;
         Cookie::$path = Kohana::$config->load('sessions.' . $name . '.path');
-        $deleted = Cookie::delete($this->_name);
+        $deleted = Cookie::delete($name);
         Cookie::$path = $default_path;
 
         return $deleted;
