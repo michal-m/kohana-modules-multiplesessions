@@ -98,7 +98,7 @@ catch (Exception $e)
 {
     Sessions::destroy_cookie('my_cookie_name');
     // You may want to redirect now to a login screen.
-    $this->request->redirect('login');
+    $this->redirect('login');
 }
 ```
 
