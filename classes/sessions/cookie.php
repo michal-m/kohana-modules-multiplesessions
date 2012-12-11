@@ -60,6 +60,6 @@ class Sessions_Cookie extends Sessions
      */
     protected function _destroy()
     {
-        return self::destroy_cookie($this->_name);
+        return Sessions::destroy_cookie($this->_name);
     }
 }
