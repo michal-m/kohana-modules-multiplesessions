@@ -96,7 +96,7 @@ try
 }
 catch (Exception $e)
 {
-    Sessions_Cookie::destroy_cookie('my_cookie_name');
+    Sessions::destroy_cookie('my_cookie_name');
     // You may want to redirect now to a login screen.
     $this->request->redirect('login');
 }
@@ -110,8 +110,3 @@ If your application consists of multiple sub-applications you may want to keep
 the sessions separate, e.g. at different paths. This might be a very rare
 situation, but it happened to me, may as well happen to you. This module gives
 you the ability to have as many sessions as you wish.
-
-### Why there's no native driver?
-
-PHP supports only one native session, so this module's not going to change it.
-If you want to use native session driver, use Kohana's Session class instead.
