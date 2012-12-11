@@ -141,7 +141,7 @@ abstract class Sessions
             if ($config['encrypted'] === TRUE)
             {
                 // Use the default Encrypt instance
-                $config['encrypted'] = 'default';
+                $config['encrypted'] = Encrypt::$default;
             }
 
             // Enable or disable encryption of data
